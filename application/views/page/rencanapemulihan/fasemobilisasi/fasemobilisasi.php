@@ -186,7 +186,7 @@ font-size: 50px;
     
       <div class="main-container">
 
-<form method="POST" action="<?php echo site_url('rencanapemulihan/insert') ?>">
+<form method="POST" action="<?php echo site_url('RencanaPemulihan/insert') ?>">
       <div class="menu-checklist-container">
         <div class="checklist-container"  onclick="toggleRadioButtons('fase1', event)">
             <p>Fase Imobilisasi (Hari 0-1 Pasca Operasi)</p>

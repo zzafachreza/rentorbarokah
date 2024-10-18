@@ -59,7 +59,7 @@ class RencanaPemulihan extends CI_Controller
 
             if($this->db->query($sql)){
                 $this->session->set_flashdata('update', 'Data berhasil di simpan !');
-            redirect('rencanapemulihan/fasemobilisasi/');
+            redirect('RencanaPemulihan/fasemobilisasi/');
             }
 
 
@@ -75,7 +75,7 @@ class RencanaPemulihan extends CI_Controller
         // Langsung load view tanpa pengecekan user dan role_id
         $this->load->view('templates/header', $data);
         // $this->load->view('topbar', $data);
-        $this->load->view('page/rencanapemulihan/fasemobilisasi/fasemobilisasi', $data);
+        $this->load->view('page/RencanaPemulihan/fasemobilisasi/fasemobilisasi', $data);
         $this->load->view('templates/footer');
     }
 
@@ -88,7 +88,7 @@ class RencanaPemulihan extends CI_Controller
         // Langsung load view tanpa pengecekan user dan role_id
         $this->load->view('templates/header', $data);
         // $this->load->view('topbar', $data);
-        $this->load->view('page/rencanapemulihan/tahapanmobilisasi/tahapanmobilisasi', $data);
+        $this->load->view('page/RencanaPemulihan/tahapanmobilisasi/tahapanmobilisasi', $data);
         $this->load->view('templates/footer');
     }
 
@@ -100,7 +100,7 @@ class RencanaPemulihan extends CI_Controller
         // Langsung load view tanpa pengecekan user dan role_id
         $this->load->view('templates/header', $data);
         // $this->load->view('topbar', $data);
-        $this->load->view('page/rencanapemulihan/tahapanmobilisasi/video', $data);
+        $this->load->view('page/RencanaPemulihan/tahapanmobilisasi/video', $data);
         $this->load->view('templates/footer');
     }
 
@@ -112,7 +112,7 @@ class RencanaPemulihan extends CI_Controller
         // Langsung load view tanpa pengecekan user dan role_id
         $this->load->view('templates/header', $data);
         // $this->load->view('topbar', $data);
-        $this->load->view('page/rencanapemulihan/latihanrentangerak/latihanrentangerak', $data);
+        $this->load->view('page/RencanaPemulihan/latihanrentangerak/latihanrentangerak', $data);
         $this->load->view('templates/footer');
     }
 
@@ -124,7 +124,7 @@ class RencanaPemulihan extends CI_Controller
         // Langsung load view tanpa pengecekan user dan role_id
         $this->load->view('templates/header', $data);
         // $this->load->view('topbar', $data);
-        $this->load->view('page/rencanapemulihan/latihanrentangerak/video', $data);
+        $this->load->view('page/RencanaPemulihan/latihanrentangerak/video', $data);
         $this->load->view('templates/footer');
     }
 }
