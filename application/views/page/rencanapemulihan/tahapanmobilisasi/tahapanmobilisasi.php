@@ -89,7 +89,7 @@
     ?>
     <div class="list-container">
         <div>
-            <a href="<?= base_url('rencanapemulihan/tahapanmobilisasi_detail/'.$r->id_pemulihan) ?>">
+            <a href="<?= base_url('RencanaPemulihan/tahapanmobilisasi_detail/'.$r->id_pemulihan) ?>">
                 <img style="border-radius: 10px" class="list-img" src="https://i.ytimg.com/vi/<?php echo $r->link_video ?>/hq720.jpg" alt="">
                 <p style=" font-family: 'Poppins', sans-serif;
                 color: black;font-weight: bold;font-size: large;"><?php echo $r->judul ?></p>
