@@ -202,28 +202,46 @@
         }
     </style>
 </head>
+<?php
 
+function isMobile() {
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+
+?>
 <body>
     <div class="container">
      
       <center>
+        <?php if(isMobile()){ ?>
             <div style="margin-bottom: 20%;margin-top:30%">
                 <div>
                    <img src="assets/img/icon/logo.png" width="150" height="150">
                  </div>
                  <div>
-                     <img src="assets/img/icon/logoteks.png" height="50" width="100%">
+                     <img src="assets/img/icon/logoteks.png" height="50" width="350">
                  </div>
             </div>
-       </center>
+                <?php } ?>
 
-                    <form class="user" method="post" action="<?= base_url('login/validasi'); ?>">
+
+                 <?php if(!isMobile()){ ?>
+            <div style="margin-bottom: 5%;margin-top:10%">
+                <div>
+                   <img src="assets/img/icon/logo.png" width="150" height="150">
+                 </div>
+                 <div>
+                     <img src="assets/img/icon/logoteks.png" height="50" width="350">
+                 </div>
+            </div>
+                <?php } ?>
+            <form class="user" method="post" action="<?= base_url('login/validasi'); ?>">
                         <div class="form-group">
                             <input type="number" class="form-control" id="telepon" name="telepon" placeholder="Nomor Telepon">
                             <small class="text-danger"><?= form_error('telepon'); ?></small>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                            <input type="password" style="width: 100%" class="form-control" id="password" name="password" placeholder="Password">
                             <small class="text-danger"><?= form_error('password'); ?></small>
                         </div>
                         <div class="form-group">
@@ -233,6 +251,9 @@
                             <p style="text-align: center; color: #aaa;"><a class="btn-register" href="<?php echo base_url('register') ?>">Belum memiliki akun? Silakan<strong> daftar</strong></a></p>
                         </div>
                     </form>
+       </center>
+
+                    
     </div>
 </body>
 

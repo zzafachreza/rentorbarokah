@@ -206,25 +206,46 @@
         }
     </style>
 </head>
+<?php
 
+function isMobile() {
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+
+?>
+
+        
 <body>
     <div class="container">
         <div class="" style="padding-bottom: 10%">
             <!-- DIV UNTUK LOGO -->
 
        <center>
-            <div style="margin-bottom: 10%">
+          <?php if(isMobile()){ ?>
+            <div style="margin-bottom: 20%;margin-top:30%">
                 <div>
                    <img src="assets/img/icon/logo.png" width="150" height="150">
                  </div>
                  <div>
-                     <img src="assets/img/icon/logoteks.png" height="50" width="100%">
+                     <img src="assets/img/icon/logoteks.png" height="50" width="350">
                  </div>
             </div>
-       </center>
+                <?php } ?>
 
 
-             <form class="user" method="POST" action="<?= base_url('register/insert'); ?>">
+                 <?php if(!isMobile()){ ?>
+            <div style="margin-bottom: 5%;margin-top:10%">
+                <div>
+                   <img src="assets/img/icon/logo.png" width="150" height="150">
+                 </div>
+                 <div>
+                     <img src="assets/img/icon/logoteks.png" height="50" width="350">
+                 </div>
+            </div>
+                <?php } ?>
+
+
+                <form class="user" method="POST" action="<?= base_url('register/insert'); ?>">
                         <div class="form-group">
                             <input type="text" class="form-control" id="namalengkap" name="nama_lengkap" placeholder="Nama Lengkap" required>
                             <small class="text-danger"><?= form_error('namalengkap'); ?></small>
@@ -236,7 +257,11 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="date" class="form-control" id="tanggallahir" name="tanggal_lahir" placeholder="Tanggal Lahir" required>
+                            <input type="text" 
+
+                                  onfocus="(this.type='date')"
+                                   onblur="(this.type='text')"
+                            class="form-control" id="tanggallahir" name="tanggal_lahir" placeholder="Tanggal Lahir" required>
                             <small class="text-danger"><?= form_error('tanggallahir'); ?></small>
                         </div>
 
@@ -255,7 +280,11 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="date" class="form-control" id="waktuoperasi" name="waktu_operasi" placeholder="Waktu Operasi" required>
+                            <input type="text"
+                              onfocus="(this.type='date')"
+                                   onblur="(this.type='text')"
+
+                             class="form-control" id="waktuoperasi" name="waktu_operasi" placeholder="Waktu Operasi" required>
                             <small class="text-danger"><?= form_error('waktuoperasi'); ?></small>
                         </div>
 
@@ -283,6 +312,10 @@
                             <p style="text-align: center; color: #aaa;"><a class="btn-register" href="<?php echo base_url('login') ?>">Sudah memiliki akun? Silakan<strong> masuk</strong></a></p>
                         </div>
                     </form>
+       </center>
+
+
+             
             
         </div>
     </div>

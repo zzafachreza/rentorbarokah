@@ -557,7 +557,7 @@
                     foreach ($this->db->query("SELECT * FROM data_latihan")->result() as $r) {
                        ?>
 
-                   <a href="<?= base_url('rencanapemulihan/latihanrentangerak_detail/'.$r->id_latihan) ?>"><img style="border-radius: 10px" src="https://i.ytimg.com/vi/<?php echo $r->link_video ?>/hq720.jpg" alt="slider foto"></a>
+                   <a href="<?php echo $r->link_video ?>"><img style="border-radius: 10px" src="<?php echo urladmin().$r->file_latihan ?>" alt="slider foto"></a>
 
                <?php } ?>
                 </div>
