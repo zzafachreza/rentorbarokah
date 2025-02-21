@@ -186,11 +186,15 @@
         }
     }
 </style>
+<?php
+$kode = $this->uri->segment(3);
+$r = $this->db->query("SELECT * FROM data_sewa WHERE kode='$kode'")->row_object();
 
+?>
 <div class="">
     <div class="header">
         <div class="nav">
-            <a href="<?= base_url('OutputData') ?>" class="btn-back"><img src="/assets/img/icon/arrow-back.png" height="20" alt="Back"></a>
+            <a href="<?= base_url('outputdata') ?>" class="btn-back"><img src="<?php echo site_url('assets/img/icon/arrow-back.png') ?>" height="20" alt="Back"></a>
             <p class="header-title">Output Data Customer</p>
             <div class="header-spacer"></div>
         </div>
@@ -200,49 +204,109 @@
         <div class="daftar-costumer-container">
             <p style="font-family:'Poppins',sans-serif; font-size:20px; font-weight:600; text-align:center; color: #172169;">Daftar Customer</p>
 
-            <div class="daftar-costumer">
-                <ul class="listdaftar-costumer">
-                    <div class="list-costumer-container">
-                        <p class="label-list">Nama Lengkap</p>
-                        <p class="separator">:</p>
-                        <p class="list-costumer">Nizam Syahputra</p>
-                    </div>
+                <div class="daftar-costumer">
+                    <ul class="listdaftar-costumer">
+                      <div class="list-costumer-container">
+                    <p class="label-list">Nama Lengkap</p>
+                    <p class="separator">:</p>
+                    <p class="list-costumer"><?php echo $r->nama_customer ?></p>
+                </div>
 
-                    <div class="list-costumer-container">
-                        <p class="label-list">Nomor Telepon</p>
-                        <p class="separator">:</p>
-                        <p class="list-costumer">087646745476</p>
-                    </div>
+                <div class="list-costumer-container">
+                    <p class="label-list">Nomor Telepon</p>
+                    <p class="separator">:</p>
+                    <p class="list-costumer"><?php echo $r->telepon_customer ?></p>
+                </div>
 
-                    <div class="list-costumer-container">
-                        <p class="label-list">Jenis Kendaraan</p>
-                        <p class="separator">:</p>
-                        <p class="list-costumer">Honda Vario</p>
-                    </div>
+                <div class="list-costumer-container">
+                    <p class="label-list">Jenis Kendaraan</p>
+                    <p class="separator">:</p>
+                    <p class="list-costumer"><?php echo $r->jenis ?></p>
+                </div>
 
-                    <div class="list-costumer-container">
-                        <p class="label-list">Paket Sewa</p>
-                        <p class="separator">:</p>
-                        <p class="list-costumer">Paket Harian</p>
-                    </div>
+                <div class="list-costumer-container">
+                    <p class="label-list">Paket Sewa</p>
+                    <p class="separator">:</p>
+                    <p class="list-costumer"><?php echo $r->paket ?></p>
+                </div>
 
-                    <div class="list-costumer-container">
-                        <p class="label-list">Waktu Ambil Motor</p>
-                        <p class="separator">:</p>
-                        <p class="list-costumer">31/01/2026 | 09.00</p>
-                    </div>
+                <div class="list-costumer-container">
+                    <p class="label-list">Waktu Ambil</p>
+                    <p class="separator">:</p>
+                    <p class="list-costumer"><?php echo $r->tanggal_ambil ?> | <?php echo $r->jam_ambil ?></p>
+                </div>
 
-                    <div class="list-costumer-container">
-                        <p class="label-list">Waktu Kembali Motor</p>
-                        <p class="separator">:</p>
-                        <p class="list-costumer">-</p>
-                    </div>
+                <div class="list-costumer-container">
+                    <p class="label-list">Waktu Kembali</p>
+                    <p class="separator">:</p>
+                    <p class="list-costumer"><?php echo $r->tanggal_kembali ?> | <?php echo $r->jam_kembali ?></p>
+                </div>
+                
+                <div class="list-costumer-container">
+                    <p class="label-list">Durasi</p>
+                    <p class="separator">:</p>
+                    <p class="list-costumer">
+                        <?php
 
-                    <div class="list-costumer-container">
-                        <p class="label-list">Total Biaya</p>
-                        <p class="separator">:</p>
-                        <p class="list-costumer">-</p>
-                    </div>
+                        if($r->paket=='Perjam'){
+                                
+                                    // hitung durasi
+                              $tanggaljam1 = new DateTime($r->tanggal_ambil . ' ' . $r->jam_ambil);
+                                $tanggaljam2 = new DateTime(); // Waktu sekarang
+
+                                // Hitung selisih waktu
+                                $selisihjam = $tanggaljam1->diff($tanggaljam2);
+
+                                // Ambil jumlah jam dan menit
+                                $jam = $selisihjam->days * 24 + $selisihjam->h;
+                                $menit = $selisihjam->i;
+
+                                // Format output
+                                $output = '';
+                                if ($jam > 0) {
+                                    $output .= $jam . ' jam ';
+                                }
+                                if ($menit > 0) {
+                                    $output .= $menit . ' menit';
+                                }
+
+                                echo trim($output); 
+
+
+
+
+                            }else{
+                               $tanggaljam1 = new DateTime($r->tanggal_ambil . ' ' . $r->jam_ambil);
+                                $tanggaljam2 = new DateTime($r->tanggal_kembali . ' ' . $r->jam_kembali); // Waktu sekarang
+
+                                // Hitung selisih waktu
+                                $selisihjam = $tanggaljam1->diff($tanggaljam2);
+
+                                // Ambil jumlah jam dan menit
+                                $jam = $selisihjam->days * 24 + $selisihjam->h;
+                                $menit = $selisihjam->i;
+
+                                // Format output
+                                $output = '';
+                                if ($jam > 0) {
+                                    $output .= $jam . ' jam ';
+                                }
+                                if ($menit > 0) {
+                                    $output .= $menit . ' menit';
+                                }
+
+                                echo trim($output); 
+                            }
+
+                            ?>
+                    </p>
+                </div>
+
+                <div class="list-costumer-container">
+                    <p class="label-list">Total Biaya</p>
+                    <p class="separator">:</p>
+                    <p class="list-costumer"><?php echo number_format($r->biaya ) ?></p>
+                </div>
                 </ul>
             </div>
         </div>
@@ -254,50 +318,43 @@
                 <div class="list-detail-container">
                     <ul class="listdaftar-costumer">
                         <p class="label-list">Kelengkapan Sewa</p>
-                        <div class="list-kelengkapansewa-pertama">
-                            <p class="dot">•</p>
-                            <p class='list-detail'>Kunci</p>
-                            <img class="checklist" src="/assets/img/icon/check.png" height="12">
-                        </div>
+                        
+                         <?php $KEL =  explode(",", $r->kelengkapan);
 
-                        <div class="list-kelengkapansewa-pertama">
-                            <p class="dot">•</p>
-                            <p class='list-detail'>STNK</p>
-                            <img class="checklist" src="/assets/img/icon/check.png" height="12">
-                        </div>
+                                            for ($i=0; $i < count($KEL) ; $i++) { 
+                                                echo '<p class="text-zvl" style="display:flex;justify-content: ;align-items: center;"><ion-icon style="color:green;margin-right:4px" name="checkmark-circle"></ion-icon> '.$KEL[$i].'</p>';
+                                            }
 
-                        <div style="margin-bottom:30px;" class="list-kelengkapansewa-pertama">
-                            <p class="dot">•</p>
-                            <p class='list-detail'>Helm</p>
-                            <img class="checklist" src="/assets/img/icon/check.png" height="12">
-                        </div>
-
-                        <div class="list-costumer-container">
-                            <p class="label-list">Jenis Jaminan</p>
-                            <p class="separator">:</p>
-                            <p class="list-costumer">KTP</p>
-                        </div>
+                                         ?>
 
                         <div>
+                            <span class="badge badge-<?php echo $r->status=='Selesai'?'success':'warning' ?>">
+                   <?php echo $r->status ?>
+               </span>
                             <div class="list-costumer-container">
                                 <p class="label-list">Foto saat Sewa</p>
                                 <p class="separator">:</p>
                                 <p class="list-costumer"></p>
                             </div>
-                            <img src="/mnt/data/image.png" onerror="this.onerror=null; this.src='/assets/img/icon/no-img.jpg';" alt="Foto Sewa" width="150">
+                            <img src="<?php echo site_url().$r->foto_sewa ?>" alt="Foto Sewa" width="150">
                         </div>
+
+
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div class="btn-selesai-container">
-            <button class='btn-selesai form-control'>Selesai Sewa</button>
+        <?php 
+            if($r->status !=='Selesai'){
+                ?>
+
+                <div class="btn-selesai-container">
+            <a href="<?php echo site_url('outputdata/status/'.$r->id_sewa) ?>" class='btn-selesai form-control'>Selesai Sewa</a>
         </div>
 
-        <div class="btn-action-container">
-            <button class='btn-edit form-control'>Edit</button>
-            <button class='btn-hapus form-control'>Hapus</button>
-        </div>
+    <?php } ?>
+
+      
     </div>
 </div>

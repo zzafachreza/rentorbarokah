@@ -192,6 +192,13 @@
         }
     }
 </style>
+
+<?php
+    
+    $id_sewa = $this->uri->segment(3);
+    $rw = $this->db->query("SELECT * FROM data_sewa WHERE id_sewa='$id_sewa'")->row_object();
+
+?>
 <div class="">
     <!-- Header -->
     <div class="header">
@@ -204,23 +211,24 @@
     
     <div class="main-container">
         <div class="input-container">
-            <form method="post" action="<?php echo site_url('outputdata/insert') ?>" enctype="multipart/form-data">
+            <form method="post" action="<?php echo site_url('outputdata/update') ?>" enctype="multipart/form-data">
                 <h3 style="font-size:20px; text-align:center; color:#172169; font-family:'Poppins', sans-serif; font-weight:600;margin-top:20px">Daftar Customer</h3>
                 <div class="form-group">
+                    <input type="hidden" name="id_sewa" value="<?php echo $id_sewa ?>">
                     <label for="nama_customer" name="nama_customer" id="nama_customer" class="form-label">Nama Lengkap</label>
-                    <input class="form-control" id="nama_customer" name="nama_customer" type="text" placeholder="Isi Nama Lengkap" required>
+                    <input class="form-control" id="nama_customer" name="nama_customer" value="<?php echo $rw->nama_customer ?>" type="text" placeholder="Isi Nama Lengkap" required>
                 </div>
                 <div class="form-group">
                     <label for="telepon_customer" name="telepon_customer" id="telepon_customer" class="form-label">Nomor Telepon</label>
-                    <input class="form-control" id="telepon_customer" name="telepon_customer" type="number" placeholder="Isi Nomor Telepon" required>
+                    <input class="form-control" id="telepon_customer" name="telepon_customer" value="<?php echo $rw->telepon_customer ?>" type="number" placeholder="Isi Nomor Telepon" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="jaminan" id="jaminan" class="form-label">Jenis Jaminan</label>
                     <select id="jaminan" name="jaminan" class="form-control">
-                        <option value="KTP">KTP</option>
-                        <option value="SIM">SIM</option>
-                        <option value="Kartu Tanda Mahasiswa">Kartu Tanda Mahasiswa</option>
+                        <option value="KTP" <?php echo $rw->jaminan=='KTP'?'selected':'' ?> >KTP</option>
+                        <option value="SIM" <?php echo $rw->jaminan=='SIM'?'selected':'' ?> >SIM</option>
+                        <option value="Kartu Tanda Mahasiswa" <?php echo $rw->jaminan=='Kartu Tanda Mahasiswa'?'selected':'' ?> >Kartu Tanda Mahasiswa</option>
                     </select>
                 </div>
                 
@@ -232,21 +240,21 @@
                 <div class="form-group">
                     <label for="paket_sewa" class="form-label">Paket Sewa</label>
                     <select id="paket_sewa" name="paket_sewa" class="form-control">
-                        <option value="Perjam">Paket Jam</option>
-                        <option value="Perhari">Paket Harian</option>
-                        <option value="Perminggu">Paket Mingguan</option>
+                        <option value="Perjam" <?php echo $rw->paket=='Perjam'?'selected':'' ?>>Paket Jam</option>
+                        <option value="Perhari" <?php echo $rw->paket=='Perhari'?'selected':'' ?>>Paket Harian</option>
+                        <option value="Perminggu" <?php echo $rw->paket=='Perminggu'?'selected':'' ?>>Paket Mingguan</option>
                     </select>
                 </div>
                 
-                 <div id="cekpaket" style="display:none">
+                 <div id="cekpaket" style="display:bloack">
                      <div class="form-group">
                         <label for="tanggal_ambil"  class="form-label">Tanggal Ambil</label>
-                        <input class="form-control" id="tanggal_ambil" name="tanggal_ambil" type="datetime-local">
+                        <input class="form-control" id="tanggal_ambil" value="<?php echo $rw->tanggal_ambil ?> <?php echo $rw->jam_ambil ?>" name="tanggal_ambil" type="datetime-local">
                     </div>
 
                        <div class="form-group">
                         <label for="tanggal_kembali"  class="form-label">Tanggal Kembali</label>
-                        <input class="form-control" id="tanggal_kembali" name="tanggal_kembali" type="datetime-local">
+                        <input class="form-control" id="tanggal_kembali" value="<?php echo $rw->tanggal_kembali ?> <?php echo $rw->jam_kembali ?>"  name="tanggal_kembali" type="datetime-local">
                     </div>
 
 
@@ -264,7 +272,7 @@
                             foreach ($this->db->query("SELECT * FROM data_kendaraan")->result() as $r ) {
                                 
                                 ?>
-                                    <option><?php echo $r->jenis_kendaraan ?></option>
+                                    <option <?php echo $rw->jenis==$r->jenis_kendaraan?'selected':'' ?> ><?php echo $r->jenis_kendaraan ?></option>
 
                                 <?php } ?>
                     </select>
@@ -273,23 +281,35 @@
                 <div class="form-group">
                     <label for="kelengkapan_sewa" name="kelengkapan_sewa" id="kelengkapan_sewa" class="form-label">Kelengkapan Sewa</label>
                     <div class="checkbox-group">
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="kelengkapan[]" value="Kunci">
-                            Kunci
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="kelengkapan[]" value="STNK">
-                            STNK
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="kelengkapan[]" id="helmCheckbox" value="Helm">
-                            Helm
-                        </label>
+                        <?php
+                            $kelengkapan = $rw->kelengkapan;
+                            $arr = explode(",", $kelengkapan); // Ubah string menjadi array
+
+                            function checked($value, $arr) {
+                                return in_array($value, $arr) ? 'checked' : ''; // Jika ada di array, tambahkan "checked"
+                            }
+                            ?>
+
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="kelengkapan[]" value="Kunci" <?= checked('Kunci', $arr); ?>>
+                                Kunci
+                            </label>
+
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="kelengkapan[]" value="STNK" <?= checked('STNK', $arr); ?>>
+                                STNK
+                            </label>
+
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="kelengkapan[]" value="Helm" <?= checked('Helm', $arr); ?>>
+                                Helm
+                            </label>
+
                     </div>
                     <!-- Inputan tambahan untuk jumlah helm -->
                     <div style="display: black; margin-top: 10px;">
                         <label for="nomor_helm" class="form-label">Masukan Nomor Helm</label>
-                        <input type="text" id="nomor_helm" name="nomor_helm" class="form-control" placeholder="Masukkan nomor helm">
+                        <input type="text" id="nomor_helm" value="<?php echo $rw->nomor_helm ?>" name="nomor_helm" class="form-control" placeholder="Masukkan nomor helm">
                     </div>
                 </div>
                 
@@ -304,20 +324,20 @@
 <script>
 
     
-    $("#paket_sewa").change(() => {
-        let val = $("#paket_sewa").val(); // Gunakan langsung ID elemen
-        console.log(val);
-        if(val!=='Perjam'){
-             $("#tanggal_ambil").prop("required", true);
-            $("#tanggal_kembali").prop("required", true);
-            $("#cekpaket").show();
-            $("#tanggal")
-        }else{
-            $("#cekpaket").hide();
-            $("#tanggal_ambil").prop("required", false);
-            $("#tanggal_kembali").prop("required", false);
-        }
-    });
+    // $("#paket_sewa").change(() => {
+    //     let val = $("#paket_sewa").val(); // Gunakan langsung ID elemen
+    //     console.log(val);
+    //     if(val!=='Perjam'){
+    //          $("#tanggal_ambil").prop("required", true);
+    //         $("#tanggal_kembali").prop("required", true);
+    //         $("#cekpaket").show();
+    //         $("#tanggal")
+    //     }else{
+    //         $("#cekpaket").hide();
+    //         $("#tanggal_ambil").prop("required", false);
+    //         $("#tanggal_kembali").prop("required", false);
+    //     }
+    // });
 
 
 

@@ -50,16 +50,16 @@
     /* Grid Layout */
     .list-costumer-container {
         display: grid;
-        grid-template-columns: 1fr 10px 2fr;
+/*        grid-template-columns: 1fr 5px 2fr;*/
         align-items: center;
-        padding: 8px 0; /* Padding diperkecil agar lebih rapat */
+        padding: 0px 0; /* Padding diperkecil agar lebih rapat */
         margin: 0; /* Menghapus margin default */
     }
     
     .label-list {
         font-family: 'Poppins', sans-serif;
         font-weight: 500;
-        font-size: 14px; /* Ukuran font diperkecil */
+        font-size: 12px; /* Ukuran font diperkecil */
         color: black;
         text-align: left;
     }
@@ -91,12 +91,9 @@
         align-items: center;
     }
 
-    .footer-add img {
-        height: 50px;
-    }
-    
+
     .status-action-container {
-        padding: 20px;
+        padding: 0px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -138,9 +135,7 @@
             height: 16px; /* Ukuran ikon lebih kecil untuk mobile */
         }
 
-        .footer-add img {
-            height: 40px; /* Ukuran ikon lebih kecil untuk mobile */
-        }
+    
 
         .nav {
             padding: 5px; /* Padding lebih kecil untuk mobile */
@@ -156,7 +151,7 @@
 
         .list-costumer-container {
             grid-template-columns: 1fr 10px 2fr; /* Tetap menggunakan grid layout */
-            padding: 6px 0; /* Padding lebih kecil untuk mobile */
+/*            padding: 6px 0; /* Padding lebih kecil untuk mobile */*/
         }
 
         .status-container {
@@ -177,17 +172,15 @@
             height: 14px; /* Ukuran ikon lebih kecil untuk layar sangat kecil */
         }
 
-        .footer-add img {
-            height: 35px; /* Ukuran ikon lebih kecil untuk layar sangat kecil */
-        }
+    
 
         .container-card {
             width: 95%; /* Lebih lebar untuk layar sangat kecil */
         }
 
         .list-costumer-container {
-            grid-template-columns: 1fr 5px 2fr; /* Grid layout lebih kecil untuk layar sangat kecil */
-            padding: 4px 0; /* Padding lebih kecil untuk layar sangat kecil */
+          /*  grid-template-columns: 1fr 5px 2fr; /* Grid layout lebih kecil untuk layar sangat kecil */
+            padding: 0px 0; /* Padding lebih kecil untuk layar sangat kecil */*/
         }
 
         .status-container {
@@ -204,92 +197,148 @@
     <!-- Header -->
     <div class="header">
         <div class="nav">
-            <a href="<?= base_url('Dashboard') ?>" class="btn-back"><img src="assets/img/icon/arrow-back.png" height="20" alt="Back"></a>
+            <a href="<?= base_url('Dashboard') ?>" class="btn-back"><img src="<?php echo site_url('assets/img/icon/arrow-back.png') ?>" height="20" alt="Back"></a>
             <p class="header-title">Output Data Customer</p>
             <div class="header-spacer"></div>
         </div>
     </div>
     
-    <div class="card-container">
+    <div>
+       <?php
+
+       foreach ($this->db->query("SELECT * FROM data_sewa")->result() as $r) {
+           
+       ?>
         <div class="container-card">
             <div class="list-costumer-container">
                 <p class="label-list">Nama Lengkap</p>
                 <p class="separator">:</p>
-                <p class="list-costumer">Nizam Syahputra</p>
+                <p class="list-costumer"><?php echo $r->nama_customer ?></p>
             </div>
 
             <div class="list-costumer-container">
                 <p class="label-list">Nomor Telepon</p>
                 <p class="separator">:</p>
-                <p class="list-costumer">087646745476</p>
+                <p class="list-costumer"><?php echo $r->telepon_customer ?></p>
             </div>
 
             <div class="list-costumer-container">
                 <p class="label-list">Jenis Kendaraan</p>
                 <p class="separator">:</p>
-                <p class="list-costumer">Honda Vario</p>
+                <p class="list-costumer"><?php echo $r->jenis ?></p>
             </div>
 
             <div class="list-costumer-container">
                 <p class="label-list">Paket Sewa</p>
                 <p class="separator">:</p>
-                <p class="list-costumer">Paket Harian</p>
+                <p class="list-costumer"><?php echo $r->paket ?></p>
             </div>
 
             <div class="list-costumer-container">
                 <p class="label-list">Waktu Ambil</p>
                 <p class="separator">:</p>
-                <p class="list-costumer">31/01/2026 | 09.00</p>
+                <p class="list-costumer"><?php echo $r->tanggal_ambil ?> | <?php echo $r->jam_ambil ?></p>
             </div>
 
             <div class="list-costumer-container">
                 <p class="label-list">Waktu Kembali</p>
                 <p class="separator">:</p>
-                <p class="list-costumer">-</p>
+                <p class="list-costumer"><?php echo $r->tanggal_kembali ?> | <?php echo $r->jam_kembali ?></p>
             </div>
             
             <div class="list-costumer-container">
                 <p class="label-list">Durasi</p>
                 <p class="separator">:</p>
-                <p class="list-costumer">0 Jam 41 Menit 0 Detik</p>
+                <p class="list-costumer"><?php
+
+                            if($r->paket=='Perjam'){
+                                
+                                    // hitung durasi
+                              $tanggaljam1 = new DateTime($r->tanggal_ambil . ' ' . $r->jam_ambil);
+                                $tanggaljam2 = new DateTime(); // Waktu sekarang
+
+                                // Hitung selisih waktu
+                                $selisihjam = $tanggaljam1->diff($tanggaljam2);
+
+                                // Ambil jumlah jam dan menit
+                                $jam = $selisihjam->days * 24 + $selisihjam->h;
+                                $menit = $selisihjam->i;
+
+                                // Format output
+                                $output = '';
+                                if ($jam > 0) {
+                                    $output .= $jam . ' jam ';
+                                }
+                                if ($menit > 0) {
+                                    $output .= $menit . ' menit';
+                                }
+
+                                echo trim($output); 
+
+
+
+
+                            }else{
+                               $tanggaljam1 = new DateTime($r->tanggal_ambil . ' ' . $r->jam_ambil);
+                                $tanggaljam2 = new DateTime($r->tanggal_kembali . ' ' . $r->jam_kembali); // Waktu sekarang
+
+                                // Hitung selisih waktu
+                                $selisihjam = $tanggaljam1->diff($tanggaljam2);
+
+                                // Ambil jumlah jam dan menit
+                                $jam = $selisihjam->days * 24 + $selisihjam->h;
+                                $menit = $selisihjam->i;
+
+                                // Format output
+                                $output = '';
+                                if ($jam > 0) {
+                                    $output .= $jam . ' jam ';
+                                }
+                                if ($menit > 0) {
+                                    $output .= $menit . ' menit';
+                                }
+
+                                echo trim($output); 
+                            }
+
+                     ?></p>
             </div>
 
             <div class="list-costumer-container">
                 <p class="label-list">Total Biaya</p>
                 <p class="separator">:</p>
-                <p class="list-costumer">-</p>
+                <p class="list-costumer"><?php echo number_format($r->biaya ) ?></p>
             </div>
             
             <div class="status-action-container">
-                <div class="status-container">
-                    <!--STATUS DISEWA ATAU SELESAI DI SEWA-->
-                    <div class="status">
-                        <p class="teks-status">Sedang Sewa</p>
-                    </div>
-                </div>
+               <span class="badge badge-<?php echo $r->status=='Selesai'?'success':'warning' ?>">
+                   <?php echo $r->status ?>
+               </span>
                 
                 <div class="action-container">
                     <!--FIND,HAPUS,EDIT-->
-                    <a href="<?=base_url('OutputData/output') ?>">
-                        <img src="/assets/img/icon/search.png" alt="icon-find" height="25">
+                    <a href="<?=base_url('outputdata/output/'.$r->kode) ?>">
+                        <img src="<?php echo site_url('assets/img/icon/search.png') ?>" alt="icon-find" height="25">
                     </a>
                     
-                    <a>
-                        <img src="/assets/img/icon/delete.png" alt="icon-delete" height="25">
+                    <a  onclick="hapusData(<?php echo $r->id_sewa ?>)">
+                        <img src="<?php echo site_url('assets/img/icon/delete.png') ?>" alt="icon-delete" height="25">
                     </a>
                     
-                    <a>
-                        <img src="/assets/img/icon/edit.png" alt="icon-edit" height="25">
+                    <a href="<?=base_url('outputdata/edit/'.$r->id_sewa) ?>">
+                        <img src="<?php echo site_url('assets/img/icon/edit.png') ?>" alt="icon-edit" height="25">
                     </a>
                 </div>
             </div>
         </div>
+
+   <?php } ?>
     </div>
 
     <!-- Footer Add Button -->
     <div class="footer-add">
-        <a href="<?= base_url('OutputData/add') ?>">
-            <img src="assets/img/icon/icon-add.png" height="50" alt="Add">
+        <a href="<?= base_url('outputdata/add') ?>">
+            <img src="<?php echo site_url('assets/img/icon/icon-add.png') ?>" height="60" width="60" alt="Add">
         </a>
     </div>
 </div>

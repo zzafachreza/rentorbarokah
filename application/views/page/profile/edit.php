@@ -3,7 +3,7 @@
     /* Styling header */
     .header-container {
         padding: 10px;
-        background-color: #AD6163;
+        background-color: #172169;
         width: 100%;
         position: fixed;
         top: 0;
@@ -89,7 +89,7 @@
         width: 100%;
         padding: 10px;
         border-radius: 10px;
-        background-color: #6EB2B0;
+        background-color: #172169;
         color: white;
         border: 0px;
     }
@@ -230,38 +230,18 @@
             <input class="form-control" type="text" value="<?= $_SESSION['nama_lengkap']; ?>" name="nama_lengkap" />
         </div>
 
-        <div class="form-group">
-            <label for="">Tempat Lahir</label>
-            <input class="form-control" type="text" value="<?= $_SESSION['tempat_lahir']; ?>" name="tempat_lahir" />
-        </div>
-
-        <div class="form-group">
-            <label for="">Tanggal Lahir</label>
-            <input class="form-control" type="date" value="<?= $_SESSION['tanggal_lahir']; ?>" name="tanggal_lahir" />
-        </div>
-
-        <div class="form-group">
-            <label for="">Jenis Kelamin</label>
-            <select class="form-control" name="jenis_kelamin">
-                <option <?= $_SESSION['jenis_kelamin']=='Laki-laki'?'selected':'' ?> >Laki-laki</option>
-                <option <?= $_SESSION['jenis_kelamin']=='Perempuan'?'selected':'' ?> >Perempuan</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="">Operasi</label>
-            <input class="form-control" type="text" value="<?= $_SESSION['operasi']; ?>" name="operasi" />
-        </div>
-
-        <div class="form-group">
-            <label for="">Waktu Operasi</label>
-            <input class="form-control" type="date" value="<?= $_SESSION['waktu_operasi'] ?>" name="waktu_operasi" />
-        </div>
+        
 
 
         <div class="form-group">
             <label for="">Nomor Telepon</label>
             <input class="form-control" type="text" name="telepon" value="<?= $_SESSION['telepon']; ?>">
+        </div>
+
+
+         <div class="form-group">
+            <label for="">Username</label>
+            <input class="form-control" type="text" name="username" value="<?= $_SESSION['username']; ?>">
         </div>
 
 

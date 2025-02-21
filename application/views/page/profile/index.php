@@ -3,7 +3,7 @@
     /* Styling header */
     .header-container {
         padding: 10px;
-        background-color: #AD6163;
+        background-color: #172169;
         width: 100%;
         position: fixed;
         top: 0;
@@ -89,7 +89,7 @@
         width: 100%;
         padding: 10px;
         border-radius: 10px;
-        background-color: #6EB2B0;
+        background-color: #172169;
         color: white;
         border: 0px;
     }
@@ -99,7 +99,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 10px;
+        margin-top: 0px;
     }
 
     .btn-keluar button {
@@ -141,7 +141,9 @@
         font-size: 14px; /* Ukuran font button lebih kecil di mobile */
     }
 
-    .footer-dashboard {
+
+
+  .footer-dashboard {
             position: fixed;
     bottom: 0;
     max-width: 1205px;
@@ -150,8 +152,8 @@
     justify-content: space-around;
     align-items: center;
     padding: 10px;
-    background-color: white;
-
+    background-color: #172169;
+    border-radius:30px 30px 0px 0px;
     z-index: 1000;
     box-sizing: border-box; /* Menjaga padding dalam batasan lebar */
         }
@@ -163,48 +165,14 @@
     flex: 1; /* Agar setiap icon memiliki ukuran yang sama */
         }
         .icon {
-            color: #7FB3B3;
+            color: white;
     font-size: 30px; /* Sesuaikan ukuran icon */
     cursor: pointer;
         }
 
-
-}
-
-.footer-dashboard {
-            position: fixed;
-    bottom: 0;
-    max-width: 1205px;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    background-color: white;
-
-    z-index: 1000;
-    box-sizing: border-box; /* Menjaga padding dalam batasan lebar */
         }
 
-        .icon-container {
-            display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1; /* Agar setiap icon memiliki ukuran yang sama */
-        }
-        .icon {
-            color: #7FB3B3;
-    font-size: 30px; /* Sesuaikan ukuran icon */
-    cursor: pointer;
-        }
 
-     .scroll-to-top, .rounded {
-        z-index: 1000;
-     }
-     .rounded {
-        margin-right: 30px;
-
-     }
 </style>
 
 <!-- header -->
@@ -228,31 +196,10 @@
             <input class="form-control" type="text" value="<?= $_SESSION['nama_lengkap']; ?>" disabled>
         </div>
 
-        <div class="form-group">
-            <label for="">Tempat Lahir</label>
-            <input class="form-control" type="text" value="<?= $_SESSION['tempat_lahir']; ?>" disabled>
+      <div class="form-group">
+            <label for="">Username</label>
+            <input class="form-control" type="text" value="<?= $_SESSION['username']; ?>" disabled>
         </div>
-
-        <div class="form-group">
-            <label for="">Tanggal Lahir</label>
-            <input class="form-control" type="text" value="<?= $_SESSION['tanggal_lahir']; ?>" disabled>
-        </div>
-
-        <div class="form-group">
-            <label for="">Jenis Kelamin</label>
-            <input class="form-control" type="text" value="<?= $_SESSION['jenis_kelamin']; ?>" disabled>
-        </div>
-
-        <div class="form-group">
-            <label for="">Operasi</label>
-            <input class="form-control" type="text" value="<?= $_SESSION['operasi']; ?>" disabled>
-        </div>
-
-<div class="form-group">
-    <label for="">Waktu Operasi</label>
-    <input class="form-control" type="text" value="<?= $_SESSION['waktu_operasi'] ?>" disabled>
-</div>
-
 
         <div class="form-group">
             <label for="">Nomor Telepon</label>
@@ -270,13 +217,15 @@
     </div>
 
 
-    <div class="footer-dashboard">
-        <div class="icon-container">
-             <a href="<?= base_url('dashboard'); ?>"> <i class="fas fa-home icon"></i></a>
-        
-    </div>
-    <div class="icon-container">
-       <a href="<?= base_url('profile'); ?>"> <i class="fas fa-user-circle icon"></i></a>
-    </div>
-        </div>
 </div>
+
+        <div class="footer-dashboard">
+            <div class="icon-container">
+                 <a href="<?= base_url('dashboard'); ?>">
+             <i class="fas fa-home icon"></i>
+         </a>
+            </div>
+            <div class="icon-container">
+               <i class="fas fa-user-circle icon"></i>
+            </div>
+        </div>

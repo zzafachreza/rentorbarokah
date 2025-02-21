@@ -73,34 +73,21 @@ private function _login()
 {
     // Ambil inputan username dan password
     $username = $this->input->post('username');
-    $password = $this->input->post('password');
+    $password = sha1($this->input->post('password'));
 
     // Cari user berdasarkan username
-    $sql = "SELECT * FROM data_pengguna WHERE username = ?";
-    $query = $this->db->query($sql, [$username]);
+    $sql = "SELECT * FROM data_pengguna WHERE username = ? AND password = ?";
+    $query = $this->db->query($sql, [$username,$password]);
     $user = $query->row_array();
 
     // Jika user ditemukan
     if ($user) {
-        // Verifikasi password menggunakan password_verify()
-        if (password_verify($password, $user['password'])) {
-            // Set session data
-            $session_data = [
-                'user_id' => $user['id'], // Simpan user ID
-                'username' => $user['username'], // Simpan username
-            ];
-            $this->session->set_userdata($session_data);
-
-            // Redirect ke dashboard
-            redirect('dashboard');
-        } else {
-            // Jika password salah
-            $this->session->set_flashdata('error', 'Password salah!');
-            redirect('login');
-        }
+    $_SESSION = $user;
+        redirect('dashboard');
+        
     } else {
         // Jika username tidak ditemukan
-        $this->session->set_flashdata('error', 'Username tidak terdaftar!');
+        $this->session->set_flashdata('error', 'Username atau password salah !');
         redirect('login');
     }
 }
@@ -109,9 +96,7 @@ private function _login()
     public function logout()
 
     {
-        $this->session->unset_userdata('user_id'); // Tambahkan ini untuk menghapus user_id dari session
-        $this->session->unset_userdata('username');
-        $this->session->unset_userdata('role_id');
+        $this->session->destroy();
         
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">

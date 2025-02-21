@@ -176,6 +176,19 @@
     }
 
     }
+
+
+    .box{
+          box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+          padding:10px;
+          margin-bottom: 10px;
+          border-radius: 10px;
+          display: flex;
+    }
+    .text-zvl{
+        font-size: 12px;
+        color: black;
+    }
 </style>
 
 
@@ -190,216 +203,48 @@
         </div>
     </div>
     
-    <div class="card-container">
-        <div>
-              <div class="container-card">
-            <div class="container-items">
-                <div class="img-container">
-                    <img src="/assets/img/icon/honda_beat.png" alt="gambar-motor">
-                </div>
+    <div class="container" style="margin-top: 4%;">
+            
+            <?php
+
+            foreach ($this->db->query("SELECT * FROM data_kendaraan")->result() as $r ) {
                 
-                <div class="label-list-container">
-                    <!-- JUDUL -->
-                    <p class="title">Honda Beat</p>
-                    <div class="info-container">
-                        <!-- Kelengkapan -->
-                        <div class="kelengkapan-container">
-                            <div class="label-info">
-                                <p class="title-info">Kelengkapan :</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">Kunci</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">STNK</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">Helm</p>
-                            </div>
+                ?>
+
+                    <div class="box">
+                        <div style="width:30%;display: flex;justify-content: center;align-items: center;">
+                            <img src="<?php echo urladmin().$r->gambar_kendaraan ?>" style="width: 100%;height: 50%;">
                         </div>
-                        
-                        <!-- Biaya Sewa -->
-                        <div class="biayasewa-container">
-                            <div class="label-info">
-                                <p class="title-info">Biaya Sewa :</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp30.000/jam</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp150.000/hari</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp600.000/minggu</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        
-        
-          <div class="container-card">
-             <div>
-                 
-             </div>
-            <div class="container-items">
-                <div class="img-container">
-                    <img src="/assets/img/icon/yamaha_mio.png" alt="gambar-motor">
-                </div>
-                
-                <div class="label-list-container">
-                    <!-- JUDUL -->
-                    <p class="title">Yamaha Mio</p>
-                    <div class="info-container">
-                        <!-- Kelengkapan -->
-                        <div class="kelengkapan-container">
-                            <div class="label-info">
-                                <p class="title-info">Kelengkapan :</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">Kunci</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">STNK</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">Helm</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Biaya Sewa -->
-                        <div class="biayasewa-container">
-                            <div class="label-info">
-                                <p class="title-info">Biaya Sewa :</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp30.000/jam</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp150.000/hari</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp600.000/minggu</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        
-        
-          <div class="container-card">
-            <div class="container-items">
-                <div class="img-container">
-                    <img src="/assets/img/icon/yamaha_nmx.png" alt="gambar-motor">
-                </div>
-                
-                <div class="label-list-container">
-                    <!-- JUDUL -->
-                    <p class="title">Yamaha Nmax</p>
-                    <div class="info-container">
-                        <!-- Kelengkapan -->
-                        <div class="kelengkapan-container">
-                            <div class="label-info">
-                                <p class="title-info">Kelengkapan :</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">Kunci</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">STNK</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">Helm</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Biaya Sewa -->
-                        <div class="biayasewa-container">
-                            <div class="label-info">
-                                <p class="title-info">Biaya Sewa :</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp30.000/jam</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp150.000/hari</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp600.000/minggu</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-          
-          
-          
-            <div class="container-card">
-            <div class="container-items">
-                <div class="img-container">
-                    <img src="/assets/img/icon/honda_scoopi.png" alt="gambar-motor">
-                </div>
-                
-                <div class="label-list-container">
-                    <!-- JUDUL -->
-                    <p class="title">Honda Scoopy</p>
-                    <div class="info-container">
-                        <!-- Kelengkapan -->
-                        <div class="kelengkapan-container">
-                            <div class="label-info">
-                                <p class="title-info">Kelengkapan :</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">Kunci</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">STNK</p>
-                            </div>
-                            <div class="item-check"> 
-                                <img src="/assets/img/icon/check.png" alt="checklist" height="15">
-                                <p class="item">Helm</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Biaya Sewa -->
-                        <div class="biayasewa-container">
-                            <div class="label-info">
-                                <p class="title-info">Biaya Sewa :</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp30.000/jam</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp150.000/hari</p>
-                            </div>
-                            <div class="item-check"> 
-                                <p class="item">Rp600.000/minggu</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-          
-          
-        </div>
-    
-        
+                         <div style="width:70%;">
+                            <p style="text-align: center;color: #182169;font-weight: bold;margin-bottom: 0px;"><?php echo $r->jenis_kendaraan ?></p>
+
+                            <div style="display: flex;padding: 0px;">
+                                    <div style="width:50%;padding: 2px;">
+                                        <p style="border-radius: 4px;text-align: center;color:white;background: #182169;font-weight: bold;font-size: 11px;">Kelangkapan</p>
+
+                                        <?php $KEL =  explode(",", $r->kelengkapan);
+
+                                            for ($i=0; $i < count($KEL) ; $i++) { 
+                                                echo '<p class="text-zvl" style="display:flex;justify-content: center;align-items: center;"><ion-icon style="color:green;margin-right:4px" name="checkmark-circle"></ion-icon> '.$KEL[$i].'</p>';
+                                            }
+
+                                         ?>
+                                    </div> 
+                                    <div style="width:50%;padding: 2px;">
+                                         <p style="border-radius: 4px;text-align: center;color:white;background: #182169;font-weight: bold;font-size: 11px;">Biaya</p>
+                                            <!-- biaya -->
+
+                                            <p class="text-zvl"><strong><?php echo number_format($r->perjam) ?></strong> <small>/ jam</small></p>
+                                            <p class="text-zvl"><strong><?php echo number_format($r->perhari) ?></strong> <small>/ hari</small></p>
+                                            <p class="text-zvl"><strong><?php echo number_format($r->perminggu) ?></strong> <small>/ minggu</small></p>
+
+                                    </div> 
+                            </div>  
+                         </div>
+                     </div>
+
+
+            <?php } ?>
+
     </div>
 </div>

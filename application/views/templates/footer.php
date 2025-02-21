@@ -28,15 +28,6 @@
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript-->
-<script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
-<script src="<?= base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.2/dist/sweetalert2.all.min.js"></script>
-<!-- Core plugin JavaScript-->
-<script src="<?= base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 
 <?php
 
@@ -46,6 +37,28 @@ print_r($this->session->flashdata('error'));
 ?>
 
 <script type="text/javascript">
+
+
+    function hapusData(x){
+        Swal.fire({
+            title: "Apakah Anda yakin?",
+            text: "Data yang dihapus tidak bisa dikembalikan!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Jika dikonfirmasi, lakukan aksi delete (contoh AJAX)
+                
+                window.location.href="<?php echo site_url('outputdata/delete/') ?>"+x
+            }
+        });
+    }
+
+
     <?php if($this->session->flashdata('import')){ ?>
 Swal.fire(
      'Successfully',

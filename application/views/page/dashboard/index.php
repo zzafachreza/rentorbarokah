@@ -90,23 +90,22 @@
         
         
    .menu {
-       padding:10px;
+      /* padding:10px;
         align-items:center;
        justify-content:center;
        align-content:center;
-       display:flex;
+       display:flex;*/
    }
    
    .menu-container {
-       padding:10,
-       width:332px;
-       border:1px solid black;
+
+      box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
        color:black;
        border-radius:10px;
        display:flex;
        justify-content:space-between;
         align-items: center;
-        height:123px;
+        height:120px;
             margin-top:20px;
        
        
@@ -119,8 +118,7 @@
    }
    
    .judul-menu {
-       font-size:35px;
-       margin-left:20px;
+       font-size:16px;
        font-weight:600;
    }
 
@@ -172,39 +170,32 @@
     }
 
    .menu {
-       padding:10px;
+     /*  padding:10px;
        align-items:center;
        justify-content:center;
        align-content:center;
        display:flex;
-      
+*/      
    }
    
    .menu-container {
-       width:600px;
-       padding:20,
+     /*  width:600px;
+       padding:10,
        color:black;
        border-radius:10px;
        display:flex;
-       justify-content:space-between;
-        align-items: center;
-        border:1px solid black;
-        margin-top:20px;
-      
+      */
         
        
        
    }
    
-   .img-menu {
-       width:77px;
-       height:77px;
-       margin-left:20px;
-   }
+
    
    .judul-menu {
-       font-size:35px;
+       font-size:20px;
        font-weight:600;
+       text-align: lefts;
    }
 
   
@@ -261,20 +252,23 @@
         <div class="main-container">
             <div class="menu">
                 <div>
-                    <a style="text-decoration:none; color:black;" href="<?= base_url('OutputData'); ?>">
-                           <div class="menu-container">
-                    <img class="img-menu" src="assets/img/icon/icon-inputdata.png">
-                    <p class="judul-menu">Input Data Customer</h3>
-                    <div style="padding:10px; background-color:transparent;"></div>
-                </div> 
+                    <a style="text-decoration:none; color:black;" href="<?= base_url('outputdata'); ?>">
+                        <div class="menu-container">
+                            <div>
+                                <img class="img-menu" style="width:80px;height: 80px;" src="assets/img/icon/icon-inputdata.png">
+                            </div>
+                            <p class="judul-menu" style="width: 70%;padding-left: 10px;">Input Data Customer</h3>
+                        </div> 
                     </a>
                 
-                <a style="text-decoration:none; color:black;" href="<?= base_url('BiayaSewa') ?>">
+                <a style="text-decoration:none; color:black;" href="<?= base_url('biayasewa') ?>">
                     <div class="menu-container">
-                    <img class="img-menu" src="assets/img/icon/icon-biayasewa.png">
-                    <p class="judul-menu">Biaya Sewa</h3>
-                    <div style="padding:10px; background-color:transparent;"></div>
-                </div>
+                        
+                          <div>
+                               <img class="img-menu" style="width:80px;height: 80px;" src="assets/img/icon/icon-biayasewa.png">
+                            </div>
+                        <p class="judul-menu" style="width: 70%;padding-left: 10px;">Biaya Sewa</h3>
+                    </div>
                 </a>
             
                 </div>

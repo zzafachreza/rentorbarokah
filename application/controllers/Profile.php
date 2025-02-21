@@ -61,11 +61,8 @@ class Profile extends CI_Controller
             $id_pengguna = $_POST['id_pengguna'];
 
             $nama_lengkap = $_POST['nama_lengkap'];
-            $tempat_lahir = $_POST['tempat_lahir'];
-            $tanggal_lahir = $_POST['tanggal_lahir'];
-            $jenis_kelamin = $_POST['jenis_kelamin'];
-            $operasi = $_POST['operasi'];
-            $waktu_operasi = $_POST['waktu_operasi'];
+            $username = $_POST['username'];
+          
             $telepon = $_POST['telepon'];
           
 
@@ -75,11 +72,8 @@ class Profile extends CI_Controller
 
                  $sql="UPDATE data_pengguna Set
                         nama_lengkap='$nama_lengkap',
-                        tempat_lahir='$tempat_lahir',
-                        tanggal_lahir='$tanggal_lahir',
-                        jenis_kelamin='$jenis_kelamin',
-                        operasi='$operasi',
-                        waktu_operasi='$waktu_operasi',
+                        username='$username',
+                       
                         telepon='$telepon',
                         password='$password' WHERE id_pengguna='$id_pengguna';";
                         
@@ -88,11 +82,7 @@ class Profile extends CI_Controller
 
                         $sql="UPDATE data_pengguna Set
                         nama_lengkap='$nama_lengkap',
-                        tempat_lahir='$tempat_lahir',
-                        tanggal_lahir='$tanggal_lahir',
-                        jenis_kelamin='$jenis_kelamin',
-                        operasi='$operasi',
-                        waktu_operasi='$waktu_operasi',
+                        username='$username',
                         telepon='$telepon' WHERE id_pengguna='$id_pengguna';";
             }
 
