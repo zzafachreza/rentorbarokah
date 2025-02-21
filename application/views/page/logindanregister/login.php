@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
         /* Gaya CSS tambahan */
         body {
-            background-image: url('assets/img/icon/bgutama.png'); /* Ganti dengan path gambar Anda */
-            background-size: 100% 100%;
+            background-color: #ffffff;
             background-position: center;
             background-repeat: no-repeat;
             margin: 0;
@@ -68,7 +70,7 @@
         .btn-block {
             width: 100%;
             padding: 10px;
-            background-color: #6EB2B0;
+            background-color: #172169;
             color: white;
             border: none;
             border-radius: 30px;
@@ -104,12 +106,18 @@
         a {
             text-decoration: none;
         }
+        
+        .title {
+           font-family: "Racing Sans One", serif;
+           color: #172169;
+           font-size: 25px;
+           text-align: center;
+        }
 
 
         @media (max-width: 480px) {
             body {
-                background-image: url('assets/img/icon/bgresponsive.png'); /* Ganti dengan path gambar mobile */
-                background-size: 100% 100%; /* Pastikan background mobile juga memenuhi seluruh area */
+                background-color: white;
                 background-position: center;
         background-repeat: no-repeat;
         min-height: 100vh; /* Tambahkan ini untuk tinggi layar */
@@ -216,10 +224,11 @@ function isMobile() {
         <?php if(isMobile()){ ?>
             <div style="margin-bottom: 20%;margin-top:30%">
                 <div>
-                   <img src="assets/img/icon/logo.png" width="150" height="150">
+                   <img src="assets/img/icon/logo2.png" width="159" height="209">
                  </div>
                  <div>
-                     <img src="assets/img/icon/logoteks.png" height="50" width="350">
+                   <p class="title">RENTOR BAROKAH</p>
+                    <p style="font-size:30px; text-align:center;color:#172169;font-family:'Poppins', sans-serif;font-weight:bold;margin-top:10px;">Masuk</p>
                  </div>
             </div>
                 <?php } ?>
@@ -228,28 +237,27 @@ function isMobile() {
                  <?php if(!isMobile()){ ?>
             <div style="margin-bottom: 5%;margin-top:10%">
                 <div>
-                   <img src="assets/img/icon/logo.png" width="150" height="150">
+                   <img src="assets/img/icon/logo2.png" width="159" height="209">
                  </div>
                  <div>
-                     <img src="assets/img/icon/logoteks.png" height="50" width="350">
+                    <p class="title">RENTOR BAROKAH</p>
+                    <p style="font-size:30px; text-align:center;color:#172169;font-family:'Poppins', sans-serif;font-weight:bold;margin-top:10px;">Masuk</p>
                  </div>
             </div>
                 <?php } ?>
             <form class="user" method="post" action="<?= base_url('login/validasi'); ?>">
                         <div class="form-group">
-                            <input type="number" class="form-control" id="telepon" name="telepon" placeholder="Nomor Telepon">
-                            <small class="text-danger"><?= form_error('telepon'); ?></small>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                            <small class="text-danger"><?= form_error('username'); ?></small>
                         </div>
                         <div class="form-group">
-                            <input type="password" style="width: 100%" class="form-control" id="password" name="password" placeholder="Password">
+                            <input type="password" style="width: 100%" class="form-control" id="password" name="password" placeholder="Kata Sandi">
                             <small class="text-danger"><?= form_error('password'); ?></small>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-block" type="submit">Masuk</button>
                         </div>
-                        <div class="form-group">
-                            <p style="text-align: center; color: #aaa;"><a class="btn-register" href="<?php echo base_url('register') ?>">Belum memiliki akun? Silakan<strong> daftar</strong></a></p>
-                        </div>
+                      
                     </form>
        </center>
 

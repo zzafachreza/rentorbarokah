@@ -8,6 +8,7 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .content-header {
     padding: 10px;
     text-align: center;
@@ -20,46 +21,85 @@
     font-size: 50px;
 }
 
-.content-header a, img {
-    width: auto;
-    height: 30px;
+.icon-header {
+    width: 30px; /* Ukuran default ikon */
+    height: auto;
 }
 
 .main-container {
     padding: 10px;
-    margin-top: 10%;
     width: 100%;
     height: 100%;
     font-family: 'Poppins', sans-serif;
     color: black;
+    margin-top: 10%;
 }
 
 .list-container {
     padding: 10px;
-    flex-direction: column;
-    align-items: center;
+
+   
+}
+
+.judul-artikel {
+    font-family: 'Poppins', sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+
+ .deks-artikel {
+    font-family: 'Poppins', sans-serif;
+    font-weight: medium;
+    text-align: center;
+    font-size: 50px;
+}
+
+.video-container {
+    display:flex;
     justify-content: center;
-    display: flex;
+    align-items: center;
+    
 }
 
-.list-img {
-    width: 332px;
-    height: 206px;
+.image-container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
-/* Media query untuk tampilan mobile dengan lebar maksimal 480px */
 @media only screen and (max-width: 480px) {
     .content-header h3 {
-        font-size: 24px; /* Ukuran header lebih kecil di mobile */
+        font-size: 24px;
+    }
+    
+    .icon-header {
+        width: 20px;
     }
 
     .main-container {
-        margin-top: 20%; /* Tambahkan margin atas lebih besar untuk mobile */
+        margin-top: 30%;
     }
 
-    .list-img {
-        width: 100%; /* Sesuaikan gambar agar memenuhi lebar layar di mobile */
-        height: auto; /* Sesuaikan tinggi gambar agar proporsional */
+    .judul-artikel {
+        font-size: 24px;
+    }
+
+    .deks-artikel {
+        font-size: 18px;
+    }
+    
+    .video-container iframe {
+        width: 332px;
+        height: 206px;
+    }
+    
+    .image-container img {
+         width: 332px;
+        height: 206px;
     }
 }
 </style>
@@ -67,7 +107,7 @@
 <!-- header -->
 <div class="header-container">
     <div class="content-header">
-       <a href="<?= base_url('dashboard') ?>"><img src="../assets/img/icon/lef.png" alt=""></a>
+       <a href="<?= base_url('dashboard') ?>"><img class="icon-header" src="../assets/img/icon/lef.png" alt="Back"></a>
     </div>
 
     <div class="content-header">
@@ -79,23 +119,51 @@
     </div>
 </div>
 
-
-
-<div class="main-container" style="padding-top: 10%">
-     <?php
-
+<div class="main-container">
+    <?php
     foreach ($this->db->query("SELECT * FROM data_pemulihan WHERE sub_judul='Latihan Rentang Gerak'")->result() as $r) {
-        # code...
-    ?>
-    <div class="list-container">
-        <div>
-            <a href="<?= base_url('rencanapemulihan/tahapanmobilisasi_detail/'.$r->id_pemulihan) ?>">
-                <img style="border-radius: 10px" class="list-img" src="https://i.ytimg.com/vi/<?php echo $r->link_video ?>/hq720.jpg" alt="">
-                <p style=" font-family: 'Poppins', sans-serif;
-                color: black;font-weight: bold;font-size: large;"><?php echo $r->judul ?></p>
-            </a>
-        </div>
-    </div>
+       
+       // Mendapatkan konten dari kolom keterangan
+        $content = $r->keterangan;
+        
+        // Regex untuk mencari elemen video (iframe) dan gambar (img)
+        $video_pattern = '/<iframe.*?src="(.*?)".*?<\/iframe>/';
+        $img_pattern = '/<img.*?src="(.*?)".*?>/';
 
-<?php } ?>
+        // Cari dan simpan elemen video dan gambar
+        preg_match($video_pattern, $content, $video_match);
+        preg_match($img_pattern, $content, $img_match);
+
+        // Hapus elemen video dan gambar dari konten untuk menyisakan teks
+        $content_text = preg_replace([$video_pattern, $img_pattern], '', $content);
+       
+       
+        ?>
+        <div class="list-container">
+            <!-- Menampilkan judul -->
+            <p class='judul-artikel'>
+                <?php echo $r->judul ?>
+            </p>
+            
+             <!-- Menampilkan video jika ada -->
+            <?php if (!empty($video_match)): ?>
+                <div class="video-container">
+                    <iframe src="<?php echo htmlspecialchars($video_match[1]); ?>" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+                </div>
+            <?php endif; ?>
+            
+              <!-- Menampilkan gambar jika ada -->
+            <?php if (!empty($img_match)): ?>
+                <div class="image-container">
+                    <img src="<?php echo htmlspecialchars($img_match[1]); ?>" alt="Deskripsi gambar" style="max-width: 100%; height: auto;">
+                </div>
+            <?php endif; ?>
+            
+            <!-- Menampilkan keterangan/deskripsi -->
+            
+            <p class='deks-artikel'>
+                 <?php echo $content_text; ?>
+            </p>
+        </div>
+    <?php } ?>
 </div>

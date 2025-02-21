@@ -29,67 +29,81 @@ class login extends CI_Controller
         }
     }
     
-    private function _login()
-    {
-        // Ambil inputan nomor telepon dan password
-        $nomortelepon = htmlspecialchars(trim($this->input->post('nomortelepon')));
-        $password = $this->input->post('password');
-    
-        // Cari user berdasarkan nomor telepon, pastikan nomor telepon tanpa spasi dan trim whitespace
-        $user = $this->db->get_where('user', ['nomortelepon' => $nomortelepon])->row_array();
-    
-        // Jika user ditemukan
-        if ($user) {
-            // Verifikasi password
-            if (password_verify($password, $user['password'])) {
-                // Jika password cocok, set session
-                $data = [
-                    'user_id' => $user['id'],  // Ganti 'id' dengan 'user_id' untuk konsistensi di seluruh aplikasi
-                    'namalengkap' => $user['namalengkap'],
-                    'nomortelepon' => $user['nomortelepon']
-                ];
-                $this->session->set_userdata($data);
-    
-                // Redirect ke dashboard atau halaman lainnya
-                redirect('dashboard');
-            } else {
-                // Jika password salah, tampilkan pesan error
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                Password salah!
-                </div>');
-                redirect('login');
-            }
+private function _login()
+{
+    // Ambil inputan username dan password
+    $username = htmlspecialchars(trim($this->input->post('username')));
+    $password = $this->input->post('password');
+
+    // Cari user berdasarkan username, pastikan username tanpa spasi dan trim whitespace
+    $user = $this->db->get_where('user', ['username' => $username])->row_array();
+
+    // Jika user ditemukan
+    if ($user) {
+        // Verifikasi password
+        if (password_verify($password, $user['password'])) {
+            // Jika password cocok, set session
+            $data = [
+                'user_id' => $user['id'],  // Ganti 'id' dengan 'user_id' untuk konsistensi di seluruh aplikasi
+                'namalengkap' => $user['namalengkap'],
+                'username' => $user['username']
+            ];
+            $this->session->set_userdata($data);
+
+            // Redirect ke dashboard atau halaman lainnya
+            redirect('dashboard');
         } else {
-            // Jika nomor telepon tidak ditemukan, tampilkan pesan error
+            // Jika password salah, tampilkan pesan error
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Nomor telepon tidak terdaftar!
+            Password salah!
             </div>');
             redirect('login');
         }
+    } else {
+        // Jika username tidak ditemukan, tampilkan pesan error
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
+        Username tidak terdaftar!
+        </div>');
+        redirect('login');
     }
-    
+}
 
 
-    public function validasi()
-    {
-        $telepon = $_POST['telepon'];
-        $password = sha1($_POST['password']);
-        $sql = "SELECT * FROM data_pengguna WHERE telepon='$telepon' AND password='$password'";
-        $cek = $this->db->query($sql)->num_rows();
+   public function validasi()
+{
+    // Ambil inputan username dan password
+    $username = $this->input->post('username');
+    $password = $this->input->post('password');
 
-        if($cek > 0){
+    // Cari user berdasarkan username
+    $sql = "SELECT * FROM data_pengguna WHERE username = ?";
+    $query = $this->db->query($sql, [$username]);
+    $user = $query->row_array();
 
-            $USER = $this->db->query($sql)->row_array();
-            $_SESSION = $USER;
+    // Jika user ditemukan
+    if ($user) {
+        // Verifikasi password menggunakan password_verify()
+        if (password_verify($password, $user['password'])) {
+            // Set session data
+            $session_data = [
+                'user_id' => $user['id'], // Simpan user ID
+                'username' => $user['username'], // Simpan username
+            ];
+            $this->session->set_userdata($session_data);
+
+            // Redirect ke dashboard
             redirect('dashboard');
-
-        }else{
-            $this->session->set_flashdata('error', 'Nomor telepon tidak terdaftar !');
+        } else {
+            // Jika password salah
+            $this->session->set_flashdata('error', 'Password salah!');
             redirect('login');
         }
-
+    } else {
+        // Jika username tidak ditemukan
+        $this->session->set_flashdata('error', 'Username tidak terdaftar!');
+        redirect('login');
     }
-
+}
 
 
     public function logout()

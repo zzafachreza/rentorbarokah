@@ -1,3 +1,14 @@
+<?php
+
+
+// unutk mobile
+function isMobile() {
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+
+
+?>
+
 <style>
 
 .header-container {
@@ -37,7 +48,7 @@ font-size: 50px;
 }
 
 .menu-checklist-container {
-    padding: 50px;
+    padding: 10px;
     
 }
 
@@ -53,19 +64,21 @@ font-size: 50px;
     padding: 10px;
     font-weight: 600;
     color: #6EB2B0;
-    font-size: 20px;
+  font-size: 14px;
    
 }
 
-.fase1-grop-cheklist label {
+.fase1-grop-cheklist label{
     text-align: justify;
     padding-left: 10px;
+    font-size:12px;
 
 }
 
 .radio-buttons {
     display: none;
     padding: 10px;
+ 
 }
 
 .radio-buttons label {
@@ -74,7 +87,7 @@ font-size: 50px;
     color: #AD6163;
     padding-top: 5px;
     padding-left: 10px;
-    font-size: 18px;
+   font-size:small;
 }
 
 .strip {
@@ -171,7 +184,7 @@ font-size: 50px;
 <!-- header -->
  <div class="header-container">
     <div class="content-header">
-       <a href="#" onclick="window.history.back()"><img src="../assets/img/icon/lef.png" alt=""></a>
+       <a href="<?php echo site_url('dashboard?menu=2') ?>"><img src="../assets/img/icon/lef.png" alt=""></a>
     </div>
 
     <div class="content-header">
@@ -186,6 +199,17 @@ font-size: 50px;
     
       <div class="main-container">
 
+<?php
+
+// cek
+
+$cek = $this->db->query("SELECT * FROM data_temp WHERE fid_pengguna='".$_SESSION['id_pengguna']."'")->row_object();
+
+
+
+
+?>
+
 <form method="POST" action="<?php echo site_url('RencanaPemulihan/insert') ?>">
       <div class="menu-checklist-container">
         <div class="checklist-container"  onclick="toggleRadioButtons('fase1', event)">
@@ -197,14 +221,14 @@ font-size: 50px;
             <br>
                  <div class="fase1-grop-cheklist">
                     <p>0-6 Jam Pasca Operasi</p>
-                    <label><input  class="checklist" type="checkbox" value="1" name="a1" > <strong>Imobilisasi</strong> : Pasien harus beristirahat total dan tidak melakukan pergerakan besar. Namun, pasien dapat melakukan gerakan sederhana seperti menggerakkan jari tangan dan kaki yang tidak terpengaruh oleh fraktur untuk menjaga sirkulasi darah.</label>
+                    <label><input  class="checklist" type="checkbox" value="1" name="a1" <?php echo isset($cek->a1) && $cek->a1 > 0?'checked':'' ?> > <strong>Imobilisasi</strong> : Pasien harus beristirahat total dan tidak melakukan pergerakan besar. Namun, pasien dapat melakukan gerakan sederhana seperti menggerakkan jari tangan dan kaki yang tidak terpengaruh oleh fraktur untuk menjaga sirkulasi darah.</label>
                  </div>
 
                  <div class="fase1-group-cheklist">
                  <p>6-10 Jam Pasca Operasi</p>
-                     <label><input  class="checklist" type="checkbox" value="1" name="a2" value="fase1_miring" > <strong>Miring Kanan dan Kiri</strong> : Keluarga dianjurkan untuk membantu pasien miring ke kanan dan ke kiri setiap 2 jam. Ini bertujuan untuk meningkatkan sirkulasi darah dan mencegah ketidaknyamanan di area insisi.</label>
+                     <label><input  class="checklist" type="checkbox" value="1" name="a2" <?php echo isset($cek->a2) && $cek->a2 > 0?'checked':'' ?> value="fase1_miring" > <strong>Miring Kanan dan Kiri</strong> : Keluarga dianjurkan untuk membantu pasien miring ke kanan dan ke kiri setiap 2 jam. Ini bertujuan untuk meningkatkan sirkulasi darah dan mencegah ketidaknyamanan di area insisi.</label>
                      <br>
-                     <label><input  class="checklist" type="checkbox"   value="1" name="a3" value="fase1_rom" > <strong>Latihan Rentang Gerak Pasif </strong>: Keluarga dapat membantu melakukan latihan ROM pasif untuk sendi-sendi yang tidak terpengaruh oleh fraktur. Latihan ini penting untuk menjaga kelenturan sendi dan mencegah kekakuan.</label>
+                     <label><input  class="checklist" type="checkbox"   value="1" name="a3" <?php echo isset($cek->a3) && $cek->a3 > 0?'checked':'' ?> value="fase1_rom" > <strong>Latihan Rentang Gerak Pasif </strong>: Keluarga dapat membantu melakukan latihan ROM pasif untuk sendi-sendi yang tidak terpengaruh oleh fraktur. Latihan ini penting untuk menjaga kelenturan sendi dan mencegah kekakuan.</label>
                  </div>
                     
                 </div>
@@ -223,28 +247,28 @@ font-size: 50px;
 
             <div class="fase2-grop-cheklist">
                     <p>Hari 1 (10-24 Jam Pasca Operasi)</p>
-                    <label><input  class="checklist" type="checkbox"  value="1" name="a4" value="fase2_miring_kanan_kiri" > <strong> Miring Kanan dan Kiri</strong> : Pasien terus melakukan gerakan miring dengan bantuan keluarga untuk meningkatkan sirkulasi darah</label>
+                    <label><input  class="checklist" type="checkbox"  value="1" name="a4" <?php echo isset($cek->a4) && $cek->a4 > 0?'checked':'' ?>  value="fase2_miring_kanan_kiri" > <strong> Miring Kanan dan Kiri</strong> : Pasien terus melakukan gerakan miring dengan bantuan keluarga untuk meningkatkan sirkulasi darah</label>
                     <br>
-                    <label><input  class="checklist" type="checkbox"  value="1" name="a5" value="fase2_duduk_di_tempat_tidur"  > <strong>Duduk di Tempat Tidur</strong> : Setelah 24 jam, keluarga dianjurkan untuk membantu pasien belajar duduk di tepi tempat tidur. Jika nyeri dapat ditoleransi, pasien dapat mencoba duduk tanpa bersandar.</label>
+                    <label><input  class="checklist" type="checkbox"  value="1" name="a5" <?php echo isset($cek->a5) && $cek->a5 > 0?'checked':'' ?>  value="fase2_duduk_di_tempat_tidur"  > <strong>Duduk di Tempat Tidur</strong> : Setelah 24 jam, keluarga dianjurkan untuk membantu pasien belajar duduk di tepi tempat tidur. Jika nyeri dapat ditoleransi, pasien dapat mencoba duduk tanpa bersandar.</label>
                     <br>
-                    <label><input  class="checklist" type="checkbox"  value="1" name="a6" value="fase2_latihan_rentang_gerak_aktif"  > <strong>Latihan Rentang Gerak Aktif</strong> : Pasien dapat mulai melakukan gerakan aktif dengan kaki yang tidak terpengaruh oleh fraktur. Kaki yang dioperasi biasanya masih dalam proses penyembuhan dan harus dihindari dari latihan aktif pada tahap ini.</label>
+                    <label><input  class="checklist" type="checkbox"  value="1" name="a6" <?php echo isset($cek->a6) && $cek->a6 > 0?'checked':'' ?>  value="fase2_latihan_rentang_gerak_aktif"  > <strong>Latihan Rentang Gerak Aktif</strong> : Pasien dapat mulai melakukan gerakan aktif dengan kaki yang tidak terpengaruh oleh fraktur. Kaki yang dioperasi biasanya masih dalam proses penyembuhan dan harus dihindari dari latihan aktif pada tahap ini.</label>
                  </div>
 
                  <div class="fase2-group-cheklist">
                  <p>Hari 2 (24-48 Jam Pasca Operasi)</p>
-                     <label><input  class="checklist" type="checkbox"  value="1" name="a7" value="fase2_latihan_duduk_dan_berdiri"  >  <strong>Latihan Duduk dan Berdiri</strong>: Keluarga harus membantu pasien untuk duduk di tepi tempat tidur dan mulai belajar berdiri dengan dukungan mereka. Pada tahap ini, pasien mungkin perlu menggunakan alat bantu seperti kruk saat berdiri untuk mengurangi beban pada kaki yang dioperasi.</label>
+                     <label><input  class="checklist" type="checkbox"  value="1" name="a7" <?php echo isset($cek->a7) && $cek->a7 > 0?'checked':'' ?>  value="fase2_latihan_duduk_dan_berdiri"  >  <strong>Latihan Duduk dan Berdiri</strong>: Keluarga harus membantu pasien untuk duduk di tepi tempat tidur dan mulai belajar berdiri dengan dukungan mereka. Pada tahap ini, pasien mungkin perlu menggunakan alat bantu seperti kruk saat berdiri untuk mengurangi beban pada kaki yang dioperasi.</label>
                  </div>
 
 
                  <div class="fase2-group-cheklist">
                  <p>Hari 3 (48-72 Jam Pasca Operasi)</p>
-                     <label><input  class="checklist" type="checkbox" value="1" name="a8" value="fase2_berdiri_dan_berjalan"  > <strong>Berdiri dan Berjalan</strong> : Keluarga diharapkan dapat membantu pasien berdiri dengan bantuan dan mulai berlatih berjalan di sekitar tempat tidur. Pada tahap ini, pasien sebaiknya menggunakan kruk untuk mendukung berat badan dan mengurangi tekanan pada kaki yang dioperasi.</label>
+                     <label><input  class="checklist" type="checkbox" value="1" name="a8" <?php echo isset($cek->a8) && $cek->a8 > 0?'checked':'' ?>  value="fase2_berdiri_dan_berjalan"  > <strong>Berdiri dan Berjalan</strong> : Keluarga diharapkan dapat membantu pasien berdiri dengan bantuan dan mulai berlatih berjalan di sekitar tempat tidur. Pada tahap ini, pasien sebaiknya menggunakan kruk untuk mendukung berat badan dan mengurangi tekanan pada kaki yang dioperasi.</label>
                  </div>
 
 
                  <div class="fase2-group-cheklist">
                  <p>Hari 4 (73-96 Jam Pasca Operasi)</p>
-                     <label><input  class="checklist" type="checkbox"  value="1" name="a9" value="fase2_berjalan_mandiri_tanpa_alat_bantu" > <strong>Berjalan Mandiri Tanpa Alat Bantu </strong>: Pada tahap ini, pasien diharapkan sudah dapat berjalan dengan bantuan minimal dari orang lain. Setelah merasa lebih kuat dan percaya diri, pasien dapat berlatih berjalan tanpa alat bantu. Penting untuk memastikan bahwa pasien merasa nyaman dan tidak mengalami nyeri saat melakukan gerakan ini.</label>
+                     <label><input  class="checklist" type="checkbox"  value="1" name="a9" <?php echo isset($cek->a9) && $cek->a9 > 0?'checked':'' ?>  value="fase2_berjalan_mandiri_tanpa_alat_bantu" > <strong>Berjalan Mandiri Tanpa Alat Bantu </strong>: Pada tahap ini, pasien diharapkan sudah dapat berjalan dengan bantuan minimal dari orang lain. Setelah merasa lebih kuat dan percaya diri, pasien dapat berlatih berjalan tanpa alat bantu. Penting untuk memastikan bahwa pasien merasa nyaman dan tidak mengalami nyeri saat melakukan gerakan ini.</label>
                  </div>
                 </div>
         </div>
@@ -259,12 +283,12 @@ font-size: 50px;
             <br>
             <div class="fase1-grop-cheklist">
                    
-                    <label><input  class="checklist" type="checkbox"  value="1" name="a10" value="fase3_latihan_rentang_gerak" > <strong>Latihan Rentang Gerak Aktif</strong>: Pasien dapat melakukan latihan rentang gerak aktif pada kaki yang dioperasi secara bertahap, sesuai dengan instruksi dokter. Latihan ini bertujuan untuk memperkuat otot dan meningkatkan jangkauan gerak sendi.</label>
+                    <label><input  class="checklist" type="checkbox"  value="1" name="a10" <?php echo isset($cek->a10) && $cek->a10 > 0?'checked':'' ?> value="fase3_latihan_rentang_gerak" > <strong>Latihan Rentang Gerak Aktif</strong>: Pasien dapat melakukan latihan rentang gerak aktif pada kaki yang dioperasi secara bertahap, sesuai dengan instruksi dokter. Latihan ini bertujuan untuk memperkuat otot dan meningkatkan jangkauan gerak sendi.</label>
                  </div>
 
                  <div class="fase1-group-cheklist">
                 
-                     <label><input  class="checklist" type="checkbox" value="1" name="a11" value="fase3_aktivitas_fungsional" > <strong>Aktivitas Fungsional</strong>: Seiring dengan kemajuan pemulihan, pasien dapat mulai melakukan aktivitas fungsional seperti menaiki tangga, berjalan di luar ruangan, dan melakukan aktivitas sehari-hari lainnya. Keluarga dapat memberikan dukungan dan motivasi selama proses ini. </label>
+                     <label><input  class="checklist" type="checkbox" value="1" name="a11" <?php echo isset($cek->a11) && $cek->a11 > 0?'checked':'' ?> value="fase3_aktivitas_fungsional" > <strong>Aktivitas Fungsional</strong>: Seiring dengan kemajuan pemulihan, pasien dapat mulai melakukan aktivitas fungsional seperti menaiki tangga, berjalan di luar ruangan, dan melakukan aktivitas sehari-hari lainnya. Keluarga dapat memberikan dukungan dan motivasi selama proses ini. </label>
                     
                  </div>
                 </div>
@@ -274,8 +298,15 @@ font-size: 50px;
   
   
       <div class="btn-container" style="margin-bottom: 20%">
+      <label>
+          <input type="radio" value="0" name="temp" checked  /> Sementara
+      </label>
+      
+            <label>
+          <input type="radio" value="1" name="temp"  /> Simpan Selesai
+      </label>
       <button class="btn-simpan" type="submit">Simpan</button><br>
-      <button class="btn-reset"  type="reset">Reset Checklist</button>
+      <button id="updateButton" class="btn-reset" type="button" onclick="updateChecklist()">Reset Checklist</button>
       </div>
       
 </form>
@@ -302,26 +333,44 @@ function saveData() {
     alert("Data berhasil disimpan.");
 }
 
-// Fungsi untuk reset semua checkbox
-function resetChecklist() {
-    const checkboxes = document.querySelectorAll('.checklist');
-    checkboxes.forEach(checkbox => checkbox.checked = false);
-
-    document.getElementById('resetButton').style.display = 'none';
+function updateChecklist() {
+    const confirmUpdate = confirm("Apakah Anda yakin ingin mengupdate checklist menjadi tidak tercentang?");
+    
+    if (confirmUpdate) {
+        // Kirim permintaan AJAX ke server untuk mengupdate data
+        fetch("<?php echo site_url('RencanaPemulihan/updateChecklist'); ?>", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId: <?php echo $_SESSION['id_pengguna']; ?> })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Jika update berhasil, kosongkan semua checkbox di frontend juga
+                const checkboxes = document.querySelectorAll('.checklist');
+                checkboxes.forEach(checkbox => checkbox.checked = false);
+                alert("Checklist berhasil di-update menjadi tidak tercentang.");
+            } else {
+                alert("Gagal mengupdate checklist.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Terjadi kesalahan saat mengupdate checklist.");
+        });
+    } else {
+        alert("Checklist tidak di-update.");
+    }
 }
 
-// Pantau perubahan checkbox untuk menampilkan/menghilangkan tombol reset
+// Memastikan tombol reset terlihat saat ada checklist yang dicentang
 document.querySelectorAll('.checklist').forEach(checkbox => {
     checkbox.addEventListener('change', () => {
-        const checkboxes = document.querySelectorAll('.checklist');
-        const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked);
-
-        // Jika semua checkbox dicentang, tampilkan tombol reset
-        if (checked.length === checkboxes.length) {
-            document.getElementById('resetButton').style.display = 'inline-block';
-        } else {
-            document.getElementById('resetButton').style.display = 'none';
-        }
+        const allCheckboxes = document.querySelectorAll('.checklist');
+        const checked = Array.from(allCheckboxes).filter(cb => cb.checked);
+        document.getElementById('resetButton').style.display = checked.length > 0 ? 'inline-block' : 'none';
     });
 });
 

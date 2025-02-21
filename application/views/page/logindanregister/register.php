@@ -258,7 +258,7 @@ function isMobile() {
 
                         <div class="form-group">
                             <input type="text" 
-
+                                    onClick="(this.type='date')"
                                   onfocus="(this.type='date')"
                                    onblur="(this.type='text')"
                             class="form-control" id="tanggallahir" name="tanggal_lahir" placeholder="Tanggal Lahir" required>
@@ -281,6 +281,7 @@ function isMobile() {
 
                         <div class="form-group">
                             <input type="text"
+                            onClick="(this.type='date')"
                               onfocus="(this.type='date')"
                                    onblur="(this.type='text')"
 
@@ -306,7 +307,7 @@ function isMobile() {
 
 
                         <div class="form-group">
-                            <button class="btn btn-block" type="submit">Masuk</button>
+                            <button class="btn btn-block" type="submit">Register</button>
                         </div>
                         <div class="form-group">
                             <p style="text-align: center; color: #aaa;"><a class="btn-register" href="<?php echo base_url('login') ?>">Sudah memiliki akun? Silakan<strong> masuk</strong></a></p>

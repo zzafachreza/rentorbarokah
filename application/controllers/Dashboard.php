@@ -7,8 +7,8 @@ class Dashboard extends CI_Controller
     {
          $data['title'] = 'Home';
         
-        // Cek apakah data user ada berdasarkan nomor telepon
-        if (isset($_SESSION['telepon'])) {
+        // Cek apakah data user ada berdasarkan username
+        if (isset($_SESSION['username'])) {
            
             // Load view untuk halaman home
             $this->load->view('templates/header', $data);

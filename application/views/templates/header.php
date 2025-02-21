@@ -25,14 +25,14 @@
 
 <body id="page-top" class="bg-gradient">
 <!-- Page Wrapper -->
-<div id="wrapper" class="">
+<div id="" class="">
 
 
 <?php
 
 
 function urladmin(){
-    return 'http://localhost/adminmodeaktif/';
+    return 'https://adminmodeaktif.okeadmin.com/';
 }
 
 
