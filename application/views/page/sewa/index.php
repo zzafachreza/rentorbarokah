@@ -220,12 +220,12 @@
 
                             <div style="display: flex;padding: 0px;">
                                     <div style="width:50%;padding: 2px;">
-                                        <p style="border-radius: 4px;text-align: center;color:white;background: #182169;font-weight: bold;font-size: 11px;">Kelangkapan</p>
+                                        <p style="border-radius: 4px;text-align: center;color:white;background: #182169;font-weight: bold;font-size: 11px;">Kelengkapan</p>
 
-                                        <?php $KEL =  explode(",", $r->kelengkapan);
+                                        <?php $KEL =  explode(",", 'STNK,Kunci,Helm,Jas Hujan');
 
                                             for ($i=0; $i < count($KEL) ; $i++) { 
-                                                echo '<p class="text-zvl" style="display:flex;justify-content: center;align-items: center;"><ion-icon style="color:green;margin-right:4px" name="checkmark-circle"></ion-icon> '.$KEL[$i].'</p>';
+                                                echo '<p class="text-zvl" style="display:flex;justify-content: left;margin-left:4px;;align-items: center;"><ion-icon style="color:green;margin-right:4px" name="checkmark-circle"></ion-icon> '.$KEL[$i].'</p>';
                                             }
 
                                          ?>

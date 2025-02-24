@@ -209,7 +209,27 @@
        foreach ($this->db->query("SELECT * FROM data_sewa")->result() as $r) {
            
        ?>
+
         <div class="container-card">
+            <div>
+                <div style="width:35%;margin-bottom: 2%;float: right;">
+                      <div class="action-container">
+                        <!--FIND,HAPUS,EDIT-->
+                        <a href="<?=base_url('outputdata/output/'.$r->kode) ?>">
+                            <img src="<?php echo site_url('assets/img/icon/search.png') ?>" alt="icon-find" height="25">
+                        </a>
+                        
+                        <a  onclick="hapusData(<?php echo $r->id_sewa ?>)">
+                            <img src="<?php echo site_url('assets/img/icon/delete.png') ?>" alt="icon-delete" height="25">
+                        </a>
+                        
+                        <a href="<?=base_url('outputdata/edit/'.$r->id_sewa) ?>">
+                            <img src="<?php echo site_url('assets/img/icon/edit.png') ?>" alt="icon-edit" height="25">
+                        </a>
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+            </div>
             <div class="list-costumer-container">
                 <p class="label-list">Nama Lengkap</p>
                 <p class="separator">:</p>
@@ -254,9 +274,16 @@
                             if($r->paket=='Perjam'){
                                 
                                     // hitung durasi
-                              $tanggaljam1 = new DateTime($r->tanggal_ambil . ' ' . $r->jam_ambil);
-                                $tanggaljam2 = new DateTime(); // Waktu sekarang
+                              if($r->status=='Selesai'){
+                                $tanggaljam1 = new DateTime($r->tanggal_ambil . ' ' . $r->jam_ambil);
+                                $tanggaljam2 = new DateTime($r->tanggal_kembali . ' ' . $r->jam_kembali); // Waktu sekarang
 
+                           
+                            }else{
+                                 $tanggaljam1 = new DateTime($r->tanggal_ambil . ' ' . $r->jam_ambil);
+                                $tanggaljam2 = new DateTime(); // Waktu sekarang
+                            }
+                             
                                 // Hitung selisih waktu
                                 $selisihjam = $tanggaljam1->diff($tanggaljam2);
 
@@ -315,20 +342,7 @@
                    <?php echo $r->status ?>
                </span>
                 
-                <div class="action-container">
-                    <!--FIND,HAPUS,EDIT-->
-                    <a href="<?=base_url('outputdata/output/'.$r->kode) ?>">
-                        <img src="<?php echo site_url('assets/img/icon/search.png') ?>" alt="icon-find" height="25">
-                    </a>
-                    
-                    <a  onclick="hapusData(<?php echo $r->id_sewa ?>)">
-                        <img src="<?php echo site_url('assets/img/icon/delete.png') ?>" alt="icon-delete" height="25">
-                    </a>
-                    
-                    <a href="<?=base_url('outputdata/edit/'.$r->id_sewa) ?>">
-                        <img src="<?php echo site_url('assets/img/icon/edit.png') ?>" alt="icon-edit" height="25">
-                    </a>
-                </div>
+              
             </div>
         </div>
 

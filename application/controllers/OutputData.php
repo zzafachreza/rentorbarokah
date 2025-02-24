@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class OutputData extends CI_Controller
+class Outputdata extends CI_Controller
 {
 
 
@@ -138,7 +138,7 @@ class OutputData extends CI_Controller
             $jenis = $_POST['jenis'];
             $kelengkapan = implode(",", $_POST['kelengkapan']);
             $nomor_helm = $_POST['nomor_helm'];
-            $foto_sewa = $this->uploadFoto('foto_sewa',date('ymdhis'));
+            
 
 
             $kendaraan = $this->db->query("SELECT * FROM data_kendaraan WHERE jenis_kendaraan='$jenis'")->row_object();
@@ -179,23 +179,45 @@ class OutputData extends CI_Controller
             $durasi = ($selisihjam->days * 24) + $selisihjam->h;
 
 
-              $sql="UPDATE data_sewa SET
-                    nama_customer='$nama_customer',
-                    telepon_customer='$telepon_customer',
-                    jaminan='$jaminan',
-                    paket='$paket_sewa',
-                    tanggal_ambil='$tanggal_ambil',
-                    jam_ambil='$jam_ambil',
-                    tanggal_kembali='$tanggal_kembali',
-                    jam_kembali='$jam_kembali',
-                    jenis='$jenis',
-                    kelengkapan='$kelengkapan',
-                    nomor_helm='$nomor_helm',
-                    foto_sewa='$foto_sewa',
-                    durasi='$durasi',
-                    biaya='$biaya'
-                    WHERE id_sewa='$id_sewa'
-                ";
+            if (!empty($_FILES['foto_sewa']) && $_FILES['foto_sewa']['error'] == 0) {
+                $foto_sewa = $this->uploadFoto('foto_sewa', date('ymdhis'));
+                $sql = "UPDATE data_sewa SET
+                            nama_customer='$nama_customer',
+                            telepon_customer='$telepon_customer',
+                            jaminan='$jaminan',
+                            paket='$paket_sewa',
+                            tanggal_ambil='$tanggal_ambil',
+                            jam_ambil='$jam_ambil',
+                            tanggal_kembali='$tanggal_kembali',
+                            jam_kembali='$jam_kembali',
+                            jenis='$jenis',
+                            kelengkapan='$kelengkapan',
+                            nomor_helm='$nomor_helm',
+                            foto_sewa='$foto_sewa',
+                            durasi='$durasi',
+                            biaya='$biaya'
+                        WHERE id_sewa='$id_sewa'";
+            } else {
+                $sql = "UPDATE data_sewa SET
+                            nama_customer='$nama_customer',
+                            telepon_customer='$telepon_customer',
+                            jaminan='$jaminan',
+                            paket='$paket_sewa',
+                            tanggal_ambil='$tanggal_ambil',
+                            jam_ambil='$jam_ambil',
+                            tanggal_kembali='$tanggal_kembali',
+                            jam_kembali='$jam_kembali',
+                            jenis='$jenis',
+                            kelengkapan='$kelengkapan',
+                            nomor_helm='$nomor_helm',
+                            durasi='$durasi',
+                            biaya='$biaya'
+                        WHERE id_sewa='$id_sewa'";
+            }
+
+
+
+
 
 
 

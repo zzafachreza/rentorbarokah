@@ -251,8 +251,17 @@ $r = $this->db->query("SELECT * FROM data_sewa WHERE kode='$kode'")->row_object(
                         if($r->paket=='Perjam'){
                                 
                                     // hitung durasi
-                              $tanggaljam1 = new DateTime($r->tanggal_ambil . ' ' . $r->jam_ambil);
+
+                            if($r->status=='Selesai'){
+                                $tanggaljam1 = new DateTime($r->tanggal_ambil . ' ' . $r->jam_ambil);
+                                $tanggaljam2 = new DateTime($r->tanggal_kembali . ' ' . $r->jam_kembali); // Waktu sekarang
+
+                           
+                            }else{
+                                 $tanggaljam1 = new DateTime($r->tanggal_ambil . ' ' . $r->jam_ambil);
                                 $tanggaljam2 = new DateTime(); // Waktu sekarang
+                            }
+                             
 
                                 // Hitung selisih waktu
                                 $selisihjam = $tanggaljam1->diff($tanggaljam2);
@@ -328,9 +337,23 @@ $r = $this->db->query("SELECT * FROM data_sewa WHERE kode='$kode'")->row_object(
                                          ?>
 
                         <div>
+
+                             <div class="list-costumer-container">
+                    <p class="label-list">Nomor Helm</p>
+                    <p class="separator">:</p>
+                    <p class="list-costumer"><?php echo $r->nomor_helm ?></p>
+                </div>
+                <div class="list-costumer-container">
+                    <p class="label-list">Jenis Jaminan</p>
+                    <p class="separator">:</p>
+                    <p class="list-costumer"><?php echo $r->jaminan ?></p>
+                </div>
+
                             <span class="badge badge-<?php echo $r->status=='Selesai'?'success':'warning' ?>">
                    <?php echo $r->status ?>
                </span>
+
+                
                             <div class="list-costumer-container">
                                 <p class="label-list">Foto saat Sewa</p>
                                 <p class="separator">:</p>

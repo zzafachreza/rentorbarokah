@@ -304,6 +304,10 @@
                                 <input type="checkbox" name="kelengkapan[]" value="Helm" <?= checked('Helm', $arr); ?>>
                                 Helm
                             </label>
+                               <label class="checkbox-item">
+                                <input type="checkbox" name="kelengkapan[]" value="Helm" <?= checked('Jas Hujan', $arr); ?>>
+                                Jas Hujan
+                            </label>
 
                     </div>
                     <!-- Inputan tambahan untuk jumlah helm -->

@@ -285,6 +285,10 @@
                             <input type="checkbox" name="kelengkapan[]" id="helmCheckbox" value="Helm">
                             Helm
                         </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="kelengkapan[]" id="helmCheckbox" value="Jas Huja">
+                            Jas Hujan
+                        </label>
                     </div>
                     <!-- Inputan tambahan untuk jumlah helm -->
                     <div style="display: black; margin-top: 10px;">
